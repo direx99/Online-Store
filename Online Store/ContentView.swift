@@ -6,21 +6,39 @@
 //
 
 import SwiftUI
+import GoogleSignIn
 
 struct ContentView: View {
+    
+
+    
+    @AppStorage("isLoggedIn") var isLoggedIn: Bool = false
+    @AppStorage("isLoginSuccessed") var isLoginSuccessed: Bool = false
+
+    
+
+
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+            
+            
+                if (isLoggedIn==true || isLoginSuccessed==true){
+                    
+                    HomeView(productViewModel: ClothProductViewModel(product: ClothProduct(name: "", brand: "", price: "", image: "", colors: [""], code: "")))
+               
+            }
+            else{
+                LoginView()
+            }
         }
-        .padding()
     }
 }
 
+
 struct ContentView_Previews: PreviewProvider {
+
     static var previews: some View {
         ContentView()
+        
     }
 }
