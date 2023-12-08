@@ -10,10 +10,17 @@ import SwiftUI
 import Firebase
 import GoogleSignIn
 import Foundation
-
+import UIKit
 
 struct HomeView: View {
 
+    
+    @ObservedObject var accountViewModel = AccountViewModel()
+    @State private var dataTimer: Timer?
+
+    
+    @State private var myname: String = ""
+  
     
         @State private var isProductDetailViewActive = false // Add a
     @ObservedObject var productViewModel: ClothProductViewModel // Assuming you want to use this to display products
@@ -24,6 +31,11 @@ struct HomeView: View {
         ClothProduct(name: "ELECTRA TOP", brand: "Women Top", price: "69", image: "e1", colors: ["v1", "v2", "v1"], code : "e")
         ]
     
+    
+    var userEmail: String {
+            return getCurrentUserEmail() ?? "No user logged in"
+        }
+    
     var body: some View {
         NavigationStack{
             
@@ -32,7 +44,7 @@ struct HomeView: View {
                 HStack{
                     VStack(alignment:.leading){
                         HStack{
-                            Text("Hi Dinith ")
+                            Text("Hi \(myname) ")
                                 .font(.system(size: 24))
                                 .fontWeight(.bold)
                             Spacer()
@@ -115,11 +127,40 @@ struct HomeView: View {
             
             .padding(20)
             .background(Color("BgColor"))
+            .onAppear {
+                        startDataFetchingTimer()
+                    }
+                    
+                    // Invalidate the timer when the view disappears
+                    .onDisappear {
+                        dataTimer?.invalidate()
+                        dataTimer = nil
+                    }
             
             
             
         }
+        
     }
+    
+    
+    private func startDataFetchingTimer() {
+            dataTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: true) { _ in
+                fetchData()
+            }
+        }
+    
+    private func fetchData() {
+        if let userEmail = Auth.auth().currentUser?.email {
+            if !userEmail.isEmpty {
+                let userData = accountViewModel.getAccountWithEmail(userEmail)
+                if userData != nil {
+                    myname = userData?.name ?? ""
+                }
+            }
+        }
+    }
+
 }
 
 
@@ -459,3 +500,15 @@ struct HomeView_Previews: PreviewProvider {
         HomeView(productViewModel: ClothProductViewModel(product: ClothProduct(name: "", brand: "", price: "", image: "", colors:[""], code: "")))
     }
 }
+
+
+
+func getCurrentUserEmail() -> String? {
+    if let user = Auth.auth().currentUser {
+        return user.email
+    } else {
+        return nil
+    }
+}
+
+

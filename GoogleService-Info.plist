@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>696481466467-7ns8d2i7c6r4te46330gkt1h1ttlbmfr.apps.googleusercontent.com</string>
+	<string>30071846220-vditbd7geba5jqdi36hik4fcopvdadqt.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.696481466467-7ns8d2i7c6r4te46330gkt1h1ttlbmfr</string>
+	<string>com.googleusercontent.apps.30071846220-vditbd7geba5jqdi36hik4fcopvdadqt</string>
 	<key>API_KEY</key>
-	<string>AIzaSyCyhK79dczbmvUkhL0Ue3VMAfAe0zYms-E</string>
+	<string>AIzaSyCH7uTkC7q8eP2yCDEggJUSYXbzyNYfi-o</string>
 	<key>GCM_SENDER_ID</key>
-	<string>696481466467</string>
+	<string>30071846220</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>io.dinith.Online-Store</string>
 	<key>PROJECT_ID</key>
-	<string>cloth-store-5cdad</string>
+	<string>online-store-ef598</string>
 	<key>STORAGE_BUCKET</key>
-	<string>cloth-store-5cdad.appspot.com</string>
+	<string>online-store-ef598.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:696481466467:ios:e3ba83d76cb1f51bc21056</string>
+	<string>1:30071846220:ios:4d5bb3fd39ce1cec5acbe9</string>
 </dict>
 </plist>

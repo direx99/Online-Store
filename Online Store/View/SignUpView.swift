@@ -24,11 +24,12 @@ struct SignUpView: View {
     @State private var isPresented = false
     @State private var isLoggingIn = false
     @State private var isLoginViewActive = false
-
-
+    
+    
     @State var showPassword : Bool = false
     @StateObject private var vm = SignWithGoogl()
-    init() {
+    init(accountViewModel: AccountViewModel = AccountViewModel()) {
+        self.accountViewModel = accountViewModel
         
         // configure firebase
         if(FirebaseApp.app() == nil){
@@ -36,9 +37,10 @@ struct SignUpView: View {
         }
     }
     
+    @ObservedObject  var accountViewModel : AccountViewModel
     
     @Environment(\.presentationMode) var presentationMode
-
+    
     var body: some View {
         NavigationStack {
             
@@ -136,10 +138,30 @@ struct SignUpView: View {
                 print("failed to create user: ", err)
                 return
             }
+            
+            
+            // Send data to Firestore
+            let db = Firestore.firestore()
+            let filmCollection = db.collection("account")
+            filmCollection.addDocument(data: [
+                "name": name,
+                "email": email,
+                "phone": phone
+                
+            ]) { error in
+                if let error = error {
+                    print("Error adding document: \(error)")
+                } else {
+                    print("Document added to Firestore with automatically generated ID")
+                }
+            }
+            
             print("Successfully created user \(result?.user.uid ?? "")")
             showAlert = true
             email = ""
             password = ""
+            phone = ""
+            name = ""
         }
         
     }
